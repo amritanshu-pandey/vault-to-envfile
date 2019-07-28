@@ -7,18 +7,24 @@ platform:
   arch: arm64
 
 steps:
+  - name: get-vault-envs
+    image: docker.xps.lan/drone-amritanshu/vault-to-env
+    settings:
+      vault_addr: http://vault.xps.lan
+      vault_token:
+        from_secret: vault_token
+      vault_secret_path: drone/data/ci
   - name: build_and_publish_docker
     image: plugins/docker
     settings:
       auto_tag: true
-      password:
-        from_secret: docker_password
-      username:
-        from_secret: docker_username
       insecure: true
-      registry: http://docker.xps.lan
+      env_file: /drone/src/vault.env
       repo: docker.xps.lan/drone-amritanshu/vault-to-env
+      custom_dns:
+        - 10.0.0.41
       when:
         event:
         - push
         - tag
+
