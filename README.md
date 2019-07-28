@@ -1,8 +1,6 @@
 Drone Plugin - vault-to-env
 ===========================
 
-[![Build Status](http://build.xps.lan/api/badges/amritanshu/vault-to-env/status.svg)](http://build.xps.lan/amritanshu/vault-to-env)
-
 Create a `vault.env` file from the secrets exported from Vault.
 The generated file contain the secrets as key=value pairs.
 
