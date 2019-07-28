@@ -14,20 +14,7 @@ steps:
       vault_token:
         from_secret: vault_token
       vault_secret_path: drone/data/ci
-  - name: build_and_publish_docker
-    image: plugins/docker
-    settings:
-      auto_tag: true
-      insecure: true
-      env_file: /drone/src/vault.env
-      repo: docker.xps.lan/drone-amritanshu/vault-to-env
-      custom_dns:
-        - 10.0.0.41
-      when:
-        branch: master
-        event:
-        - push
-        - tag
+
   - name: build_docker
     image: plugins/docker
     settings:
@@ -42,3 +29,18 @@ steps:
       when:
         branch:
           exclude: [ master ]
+
+  - name: build_and_publish_docker
+    image: plugins/docker
+    settings:
+      auto_tag: true
+      insecure: true
+      env_file: /drone/src/vault.env
+      repo: docker.xps.lan/drone-amritanshu/vault-to-env
+      custom_dns:
+        - 10.0.0.41
+      when:
+        branch: master
+        event:
+        - push
+        - tag
