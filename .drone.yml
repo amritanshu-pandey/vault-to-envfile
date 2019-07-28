@@ -24,7 +24,21 @@ steps:
       custom_dns:
         - 10.0.0.41
       when:
+        branch: master
         event:
         - push
         - tag
-
+  - name: build_docker
+    image: plugins/docker
+    settings:
+      auto_tag: false
+      tags: ['test-build']
+      insecure: true
+      dry_run: true
+      env_file: /drone/src/vault.env
+      repo: docker.xps.lan/drone-amritanshu/vault-to-env
+      custom_dns:
+        - 10.0.0.41
+      when:
+        branch:
+          exclude: [ master ]
